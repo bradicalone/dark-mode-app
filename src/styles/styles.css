@@ -8,6 +8,12 @@ body {
     background: #e7e7e9;
     font-family: 'Lato', sans-serif;
 }
+
+.form-control:focus {
+    border-color: none;
+    outline: 0;
+    box-shadow: none;
+}
 /* NAVIGATION */
 
 .fas.fa-bars {
@@ -23,6 +29,7 @@ body {
     height: 100%;
     position: absolute;
     left: 0;
+    top: 0;
     background: #f5f5f7;
 }
 
@@ -41,23 +48,46 @@ body {
 }
 
 .header h1 {
-    padding: 15px;
+    padding: 10px;
     margin: 0px;
     border-bottom: 1px dotted #d4d4d4;
+}
+
+.appointment-container {
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    position: relative;
+    left: 250px;
+    max-width: 700px;
 }
 
 /* Data Content */
 
 .data-wrapper {
-    position: absolute;
-    top: 50%;
-    left: calc(50% + 100px);
-    transform: translate(-50%, -50%);
+    position: relative;
+    width: 100%;
+    border-radius: 4px;
+    padding: 20px 10px;
+    background: #f5f5f7;
+    align-self: center;
+    -webkit-box-shadow: 0 6px 12px -2px rgba(50,50,93,.25), 0 3px 7px -3px rgba(0,0,0,.3);
+    box-shadow: 0 6px 12px -2px rgba(50,50,93,.25), 0 3px 7px -3px rgba(0,0,0,.3);
+}
+
+/* Form Content */
+
+.form-wrapper {
+    position: relative;
+    top: 15px;
+    width: 100%;
     background: #f5f5f7;
     -webkit-box-shadow: 0 6px 12px -2px rgba(50,50,93,.25), 0 3px 7px -3px rgba(0,0,0,.3);
     box-shadow: 0 6px 12px -2px rgba(50,50,93,.25), 0 3px 7px -3px rgba(0,0,0,.3);
     border-radius: 4px;
     padding: 20px 10px;
+    align-self: center;
 }
 
 /*  CREATE APPOINTMENT */
@@ -89,9 +119,9 @@ box-shadow: none;
 /* VIEW APPOINTMENTS */
 
 .view-appointment {
-    padding: 30px;
+    padding: 10px;
     position: relative;
-    top: 25px;
+    top: 10px;
 }
 
 /* REMOVE APPOINTMENT */
@@ -109,9 +139,7 @@ box-shadow: none;
     border-radius: 5px;
 }
 @media (min-width: 900px){
-    .data-wrapper {
-        min-width: 700px;
-    }
+
 }
 
 @media (max-width: 900px){
@@ -121,9 +149,8 @@ box-shadow: none;
         transition: transform .5s ease;
     }
 
-    .data-wrapper {
-        width: 90%;
-        left: 50%;
+    .appointment-container {
+        left: 0;
         transition: left .5s ease;
     }
     .fas.fa-bars {

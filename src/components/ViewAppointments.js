@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { apptBoolean } from '../actions/appointments.js'
 
 const ViewAppointments = (props) => {
     const [edit, setEdit] = useState(false);
     const [newData,  editData]  = useState({
         appointments: [],
-        viewAppointments: false
     });
 
     // *******************      DIDN'T QUITE FINISH EDITAPPOINTMENTS  *******************
@@ -22,56 +23,97 @@ const ViewAppointments = (props) => {
 
     return (
         <div className="view-appt">
-            {props.formData.viewAppointments ?
-            
             <div className="view-appointment">
-            <h5>View Your Appointment</h5>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Date</td>
-                        <td>Time</td>
-                        <td>Location</td>
-                        <td>Description</td>
-                        {props.cancel && <td>Cancel Appt</td>}
-                        {props.edit && <td>Edit underneath</td>}
-                    </tr>
-                </thead>
-                <tbody>
-                {
-                    props.formData.appointments.map((el, i) => {
-                        let row = i;
-                        return (
-                            <tr>
-                                <td>{i}</td>
-                                {
-                                    Object.keys(el).map((value, k) => {
-                                        let val = props.formData.appointments[row][value]
-                                        return (
-                                            <React.Fragment>
-                                                {!props.edit && <td key={k}>{val}</td>}
-                                                {props.edit && <td><textarea key={k} className="edited-text">{val}</textarea></td>}
-                                                {k === 4 && <td className="remove-apnt">X</td>}  
-                                            </React.Fragment>                 
-                                        )     
-                                    })
-                                }
-                                {props.cancel && <td className="remove-apnt"><button type="button" className="btn btn-danger" 
-                                onClick={(e)=>{props.removeAppointment(e)}}>Remove</button></td>}  
-
-                                {props.edit && <td className="edit-apnt"><button type="button" className="btn btn-success" 
-                                onClick={edit}>Edit</button></td>}  
-                            </tr>
-                        )
-                    })
-                }
-                </tbody>
-            </table>
-        </div>
-        : <span>First add appointment</span>}
+                <h5>Your Appointments</h5>
+                <table className="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Date</td>
+                            <td>Time</td>
+                            <td>Location</td>
+                            <td>Description</td>
+                            {props.cancel && <td>Cancel Appt</td>}
+                            {props.edit && <td>Edit underneath</td>}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    
+                    {
+                        props.appointments.map((el, i) => {
+                            let row = i;
+                            console.log(props)
+                            return (
+                                <tr key={i}>
+                                    <td key={i}>{i}</td>
+                                    {
+                                    (() => {
+                                        
+                                        
+                                        switch ( props.navClicked.text ) {
+                                            case "edit appointments":
+                                                return <Edit el={el} />
+                                            case "":
+                                                return <Create el={el} edit={editAppointments}/>
+                                        }
+                                        
+                                        // Object.keys(el).map((value, k) => {
+                                        //     let val = props.formData.appointments[row][value]
+                                        //     return (
+                                        //         <React.Fragment key={k}>
+                                                   
+                                        //             {!props.edit && <td>{val}</td>}
+                                        //             {props.edit && <td><textarea className="edited-text">{val}</textarea></td>}
+                                        //             {k === 4 && <td className="remove-apnt">X</td>}  
+                                        //         </React.Fragment>                 
+                                        //     )     
+                                        // })
+                                    })()}
+                                    {props.cancel && <td className="remove-apnt"><button type="button" className="btn btn-danger" 
+                                    onClick={(e)=>{props.removeAppointment(e)}}>Remove</button></td>}  
+                                </tr>
+                            )
+                        })
+                    }
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }
 
-export default ViewAppointments
+const Create = (props) => (
+    <React.Fragment>
+    {
+            Object.keys(props.el).map((value, k) => {
+                console.log(value)
+                let val = props.el[value]
+                return (
+                    <td key={k}>{val}</td>         
+                )     
+            })
+        }
+    </React.Fragment>
+)
+const Edit = (props) => (
+    <React.Fragment>
+       {
+            Object.keys(props.el).map((value, k) => {
+                console.log(value)
+                let val = props.el[value]
+                return (
+                    <td key={k}><textarea className="edited-text" defaultValue={val} onChange={props.edit}></textarea></td>        
+                )     
+            })
+        }
+        <td className="edit-apnt"><button type="button" className="btn btn-success">Edit</button></td>
+    </React.Fragment>
+)
+
+export default connect((state) => {
+    return {
+        appointments: state.appointments,
+        navClicked: state.update
+    }
+})(ViewAppointments);
+

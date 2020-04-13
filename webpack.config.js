@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/redux.js',
+  entry: './src/App.js',
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js'
@@ -19,7 +19,7 @@ module.exports = {
       ]
     }]
   },
-  mode: 'production',
+  mode: 'development',
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public')
