@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from 'redux';
-import { apptReducer } from '../reducers/appointments';
-import { updateReducer } from '../reducers/appointments';
+import { apptReducer, updateReducer } from '../reducers/appointments';
+
 
 export default () => {
     // When state changes

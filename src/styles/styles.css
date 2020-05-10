@@ -9,6 +9,10 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+.table>tbody>tr>td{
+    vertical-align: center;
+}
+
 .form-control:focus {
     border-color: none;
     outline: 0;
@@ -124,10 +128,15 @@ box-shadow: none;
     top: 10px;
 }
 
-/* REMOVE APPOINTMENT */
+/* CANCEL APPOINTMENT */
+.cancel-apnt {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
 
-.remove-apnt .btn-danger {
-    padding: 3px 7px;
+.fas.fa-trash-alt {
+    font-size: 2rem;
 }
 
 

@@ -5,12 +5,12 @@ import Data from './Data'
 
 class Navigation extends React.Component {
     state = {
-        panel: '',
         navOpen: false
     }
 
     handleChange = (e) => {
         let targetElem = e.target.innerText.toLowerCase()
+        console.log('targetElem:', targetElem)
         this.props.dispatch(panelClicked(targetElem, this.props.appointments))
         if (window.innerWidth < 900) this.openNav()
     }
@@ -25,15 +25,13 @@ class Navigation extends React.Component {
     render() {
         return (
             <div>
-                
-                <Data panel={this.state.panel} navOpen={this.state.navOpen}/>
+                <Data navOpen={this.state.navOpen}/>
                 <Nav handleChange={this.handleChange} openNav={this.openNav} navOpen={this.state.navOpen}/>
             </div>
         )
     }
 }
 const Nav = (props) => (
-
     <div style={{transform: props.navOpen ? 'translateX(200px)' : 'translateX(0)'}} className="nav-container"
         onClick={(e)=> {props.handleChange(e)}}>
         <i className="fas fa-bars" onClick={(e)=> {props.openNav(e)}}></i>
@@ -42,7 +40,6 @@ const Nav = (props) => (
         <button>Edit Appointments</button>
         <button>Cancel Appointment</button>
     </div>
-
 )
 export default connect((state) => {
     return {

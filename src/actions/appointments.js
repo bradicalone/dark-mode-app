@@ -18,6 +18,11 @@ export const appointment = ({date, time, location, description} = {}) => ({
     }
 })
 
+export const edit = (elements = '') => ({
+    type:  'EDIT',
+    elements
+
+})
 
 export const apptBoolean = (state) => ({
     type:  'VIEW_APPOINTMENTS',

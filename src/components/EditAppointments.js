@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ViewAppointments from './ViewAppointments'
+import ViewAppointments from './Appointments'
 
 
 const EditAppointments = (props) => {

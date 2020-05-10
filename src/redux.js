@@ -38,12 +38,6 @@ const appointment = ({date, time, location, description} = {}) => ({
     }
 })
 
-const appt_data = {
-    date: '',
-    time: '',
-    location: '',
-    description: ''
-}
 
 const update_appt = {
     update: [],
