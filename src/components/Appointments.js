@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { apptBoolean, edit, panelClicked } from '../actions/appointments.js'
@@ -40,7 +41,7 @@ const Appointments = (props) => {
                     {
                         props.appointments.map((el, i) => {
                             let row = i;
-                            console.log(props)
+                            console.log(el)
                             return (
                                 <tr key={i}>
                                     <td key={i}>{i}</td>
@@ -67,7 +68,14 @@ const Appointments = (props) => {
         </div>
     )
 }
-
+/**date: any; time: any; location: any; description: any; 
+ * Cancel appointment
+ * @param {Object} props.el - object
+ * @param {string} props.el.date - date
+ * @param {string} props.el.time - time
+ * @param {string} props.el.location - location
+ * @param {string} props.el.descrition - description
+ */
 const Cancel = (props) => (
     <React.Fragment>
        {
@@ -87,6 +95,7 @@ const Cancel = (props) => (
 )
 const Create = (props) => (
     <React.Fragment>
+        {console.log('props:', props)}
     {
             Object.keys(props.el).map((value, k) => {
                 console.log(value)
@@ -114,7 +123,7 @@ const Edit = (props) => {
     <React.Fragment>
        {
             Object.keys(props.el).map((value, k) => {
-                console.log(value)
+     
                 let val = props.el[value]
                 return (
                     <td key={k}><textarea data-text={value} className="edited-text" defaultValue={val}></textarea></td>        

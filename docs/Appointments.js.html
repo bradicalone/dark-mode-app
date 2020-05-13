@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Appointments.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Appointments.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// @ts-nocheck
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { apptBoolean, edit, panelClicked } from '../actions/appointments.js'
+
+const Appointments = (props) => {
+    const [newData,  editData]  = useState({
+        appointments: [],
+    });
+
+    // *******************      DIDN'T QUITE FINISH EDITAPPOINTMENTS  *******************
+    const editAppointments = () => {
+        let text = document.getElementsByClassName('edited-text')
+        let content = {}
+        Array.prototype.forEach.call(text, (el, i) => {
+            let val = el.value
+            let key = el.id
+            content[key] = val
+        })
+        editData({appointments: newData.appointments.concat(text)})
+    }
+    
+
+    return (
+        &lt;div className="view-appt">
+            &lt;div className="view-appointment">
+                &lt;h5>Your Appointments&lt;/h5>
+                &lt;table className="table table-striped">
+                    &lt;thead>
+                        &lt;tr>
+                            &lt;td>#&lt;/td>
+                            &lt;td>Date&lt;/td>
+                            &lt;td>Time&lt;/td>
+                            &lt;td>Location&lt;/td>
+                            &lt;td>Description&lt;/td>
+                            {props.cancel &amp;&amp; &lt;td>Cancel Appt&lt;/td>}
+                            {props.edit &amp;&amp; &lt;td>Edit underneath&lt;/td>}
+                        &lt;/tr>
+                    &lt;/thead>
+                    &lt;tbody>
+                    {
+                        props.appointments.map((el, i) => {
+                            let row = i;
+                            console.log(el)
+                            return (
+                                &lt;tr key={i}>
+                                    &lt;td key={i}>{i}&lt;/td>
+                                    {
+                                    (() => {
+                                        switch ( props.navClicked.text ) {
+                                            case "create appointments":
+                                                return &lt;Create el={el}/>
+                                            case "edit appointments":
+                                                return &lt;Edit dispatch={props.dispatch} el={el} />
+                                            case "" :
+                                                return &lt;Create el={el}/>
+                                            case "cancel appointment":
+                                                return &lt;Cancel el={el} />
+                                        }
+                                    })()}
+                                &lt;/tr>
+                            )
+                        })
+                    }
+                    &lt;/tbody>
+                &lt;/table>
+            &lt;/div>
+        &lt;/div>
+    )
+}
+/**date: any; time: any; location: any; description: any; 
+ * Cancel appointment
+ * @param {Object} props.el - object
+ * @param {string} props.el.date - date
+ * @param {string} props.el.time - time
+ * @param {string} props.el.location - location
+ * @param {string} props.el.descrition - description
+ */
+const Cancel = (props) => (
+    &lt;React.Fragment>
+       {
+            Object.keys(props.el).map((value, k) => {
+                console.log(value)
+                let val = props.el[value]
+                return (
+                    &lt;td key={k}>{val}&lt;/td>      
+                )     
+            })
+        }
+        &lt;td className="cancel-apnt">
+            &lt;button type="button" className="btn btn-info">Cancel&lt;/button>
+            &lt;i className="fas fa-trash-alt">&lt;/i>
+        &lt;/td>
+    &lt;/React.Fragment>
+)
+const Create = (props) => (
+    &lt;React.Fragment>
+        {console.log('props:', props)}
+    {
+            Object.keys(props.el).map((value, k) => {
+                console.log(value)
+                let val = props.el[value]
+                return (
+                    &lt;td key={k}>{val}&lt;/td>
+                )     
+            })
+        }
+    &lt;/React.Fragment>
+)
+const Edit = (props) => {
+  
+    const saveEdit = (e) => {
+        let elements = e.target.parentNode.parentNode
+        console.log('elements:', elements)
+        let editedText = document.getElementsByClassName('edited-text')
+        // return () => {
+            props.dispatch( edit(elements) )
+            props.dispatch( panelClicked('', props.el))
+        // }
+        
+    }
+    return (
+    &lt;React.Fragment>
+       {
+            Object.keys(props.el).map((value, k) => {
+     
+                let val = props.el[value]
+                return (
+                    &lt;td key={k}>&lt;textarea data-text={value} className="edited-text" defaultValue={val}>&lt;/textarea>&lt;/td>        
+                )     
+            })
+        }
+        &lt;td className="edit-apnt">&lt;button type="button" className="btn btn-success" onClick={(e)=>{saveEdit(e)}}>Save&lt;/button>&lt;/td>
+    &lt;/React.Fragment>
+    )
+}
+
+export default connect((state) => {
+    return {
+        appointments: state.appointments,
+        navClicked: state.update
+    }
+})(Appointments);
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Cancel">Cancel</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Wed May 13 2020 08:36:58 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

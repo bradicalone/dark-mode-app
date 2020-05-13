@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "live-server public/",
     "build": "NODE_ENV=development webpack --watch",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "doc": "jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
     "css-loader": "^3.4.2",
+    "jsdoc": "^3.6.4",
     "react": "^16.0.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.0",

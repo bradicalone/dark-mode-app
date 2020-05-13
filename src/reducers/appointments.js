@@ -18,6 +18,8 @@ export const apptReducer = (state = appt_default_state , action) => {
 
             Array.prototype.forEach.call(children,(el) => {
                 let target = el.firstChild.className
+                
+                // get values only from the elements that can have data
                 if(target === 'edited-text') {
                     let key =  el.firstChild.dataset.text
                     let val = el.firstChild.value
