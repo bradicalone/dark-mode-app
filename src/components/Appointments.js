@@ -68,7 +68,7 @@ const Appointments = (props) => {
         </div>
     )
 }
-/**date: any; time: any; location: any; description: any; 
+/**
  * Cancel appointment
  * @param {Object} props.el - object
  * @param {string} props.el.date - date
@@ -95,7 +95,6 @@ const Cancel = (props) => (
 )
 const Create = (props) => (
     <React.Fragment>
-        {console.log('props:', props)}
     {
             Object.keys(props.el).map((value, k) => {
                 console.log(value)
@@ -104,20 +103,16 @@ const Create = (props) => (
                     <td key={k}>{val}</td>
                 )     
             })
-        }
+    }
     </React.Fragment>
 )
 const Edit = (props) => {
-  
     const saveEdit = (e) => {
         let elements = e.target.parentNode.parentNode
         console.log('elements:', elements)
         let editedText = document.getElementsByClassName('edited-text')
-        // return () => {
-            props.dispatch( edit(elements) )
-            props.dispatch( panelClicked('', props.el))
-        // }
-        
+        props.dispatch( edit(elements) )
+        props.dispatch( panelClicked('', props.el))
     }
     return (
     <React.Fragment>
